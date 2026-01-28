@@ -8,6 +8,7 @@ public class ActividadSwitchCalculadora {
         System.out.println("2. Restar");
         System.out.println("3. Multiplicar");
         System.out.println("4. Dividir");
+
     }
 
     public static double sumar(double a, double b) {
