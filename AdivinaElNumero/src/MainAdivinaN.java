@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class MainAdivinaN {
     static int erroresRango = 0;
     static int erroresNoNumerico = 0;
+
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
@@ -38,6 +39,7 @@ public class MainAdivinaN {
         System.out.println("El número secreto era: " + secreto);
         System.out.println("Veces fuera de rango: " + erroresRango);
         System.out.println("Veces con dato no numérico: " + erroresNoNumerico);
+
 
     }
 
