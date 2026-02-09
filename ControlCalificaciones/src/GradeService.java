@@ -18,7 +18,7 @@ public class GradeService {
         }
         else {
             if (califFinal >= 70.0) {
-                return "Aprovado";
+                return "Aprobado";
             } else {
                 return "Reprobado por calificación";
             }
