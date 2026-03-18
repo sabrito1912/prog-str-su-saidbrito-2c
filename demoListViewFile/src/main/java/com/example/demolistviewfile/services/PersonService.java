@@ -35,14 +35,38 @@ public class PersonService {
         return result;
     }
 
-    public void addPerson(String name, String email, int age) throws IOException {
-
+    public void updatePerson(int index, String name, String email, String age) throws IOException{
         validate(name, email, age);
+        List<String> listaOriginal = repo.readAllLines();
+        List<String> cleanLines = new ArrayList<>();
 
+        for(String line : listaOriginal){
+            if(line != null && !line.isBlank()){
+                cleanLines.add(line);
+            }
+        }
+        cleanLines.set(index, name + "," + email + "," + age);
+        repo.saveFile(cleanLines);
+    }
+    public void delete(int index) throws IOException{
+        List<String> listaOriginal = repo.readAllLines();
+        List<String> cleanLines = new ArrayList<>();
+
+        for(String line : listaOriginal){
+            if(line != null && !line.isBlank()){
+                cleanLines.add(line);
+            }
+        }
+        cleanLines.remove(index);
+        repo.saveFile(cleanLines);
+    }
+
+    public void addPerson(String name, String email, String age) throws IOException {
+        validate(name, email, age);
         repo.addNewLine(name + "," + email + "," + age);
     }
 
-    private void validate(String name, String email, int age){
+    private void validate(String name, String email, String age){
 
         if(name == null || name.isBlank() || name.length() < 3){
             throw new IllegalArgumentException("El nombre es incorrecto");
@@ -54,12 +78,18 @@ public class PersonService {
             throw new IllegalArgumentException("El email es invalido");
         }
 
-        if(age < 0){
-            throw new IllegalArgumentException("La edad no puede ser negativa");
-        }
+        try {
+            int ageInt = Integer.parseInt(age);
 
-        if(age < 18){
-            throw new IllegalArgumentException("Solo se aceptan mayores de edad");
+            if(ageInt < 0){
+                throw new IllegalArgumentException("La edad no puede ser negativa");
+            }
+
+            if(ageInt < 18){
+                throw new IllegalArgumentException("Solo se aceptan mayores de edad");
+            }
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("La edad debe ser un número válido");
         }
     }
 }
